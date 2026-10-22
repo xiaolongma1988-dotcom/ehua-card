@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>منصة الخدمات الشاملة في مصر | 埃及华人综合服务平台</title>
-  <!-- Google Fonts: Cairo -->
+  <!-- Google Fonts: Cairo & Noto Sans SC -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -13,17 +13,17 @@
 
   <style>
     :root {
-      --bg-gradient: linear-gradient(145deg, #424e5e 0%, #293444 45%, #1d2532 100%);
-      --card-bg: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(212, 175, 55, 0.25);
-      --gold: #d4af37;
-      --gold-light: #f3e5ab;
-      --gold-dark: #b89326;
-      --wa-green: #25d366;
-      --text-white: #ffffff;
-      --text-dim: #cbd5e1;
-      --glass-panel: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.12);
+      /* 方案 C：沙漠暖沙与赤陶岩温润色系 */
+      --sand-bg: linear-gradient(150deg, #fbf8f3 0%, #f3ede2 50%, #eae1d1 100%);
+      --terracotta: #c06c54;       /* 核心暖红陶色 */
+      --terracotta-dark: #a3553e;
+      --sand-brown: #745846;       /* 暖沙褐 */
+      --sand-card-bg: rgba(255, 255, 255, 0.85);
+      --sand-border: #e2d6c3;
+      --sand-gold: #c2884a;
+      --text-main: #3d2f25;        /* 暖黑褐文本 */
+      --text-muted: #7d6e63;
+      --wa-terracotta: linear-gradient(135deg, #c47158 0%, #a85842 100%);
     }
 
     * {
@@ -34,9 +34,9 @@
 
     body {
       font-family: 'Cairo', 'Noto Sans SC', sans-serif;
-      background: var(--bg-gradient);
+      background: var(--sand-bg);
       min-height: 100vh;
-      color: var(--text-white);
+      color: var(--text-main);
       line-height: 1.6;
       padding: 24px 16px 60px;
       display: flex;
@@ -54,9 +54,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--sand-border);
     }
 
     .brand-meta {
@@ -69,53 +69,53 @@
     .brand-meta h2 {
       font-size: 19px;
       font-weight: 800;
-      color: var(--text-white);
-      letter-spacing: 0.5px;
+      color: var(--sand-brown);
+      letter-spacing: 0.3px;
     }
 
     .brand-meta p {
       font-size: 13px;
-      color: var(--text-dim);
-      font-weight: 500;
+      color: var(--text-muted);
+      font-weight: 600;
     }
 
     .brand-avatar {
       width: 52px;
       height: 52px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      color: #1a202c;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #d8896e 0%, var(--terracotta) 100%);
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+      box-shadow: 0 6px 18px rgba(192, 108, 84, 0.28);
       flex-shrink: 0;
     }
 
-    /* 视图切换与语言切换按钮栏 */
+    /* 交互控制栏（模式切换 + 语言切换） */
     .control-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       flex-wrap: wrap;
     }
 
     .view-tabs {
       display: flex;
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(226, 214, 195, 0.5);
       padding: 4px;
       border-radius: 12px;
-      border: 1px solid var(--glass-border);
+      border: 1px solid var(--sand-border);
       gap: 4px;
     }
 
     .tab-btn {
       background: transparent;
       border: none;
-      color: var(--text-dim);
+      color: var(--text-muted);
       padding: 8px 16px;
       border-radius: 8px;
       font-family: inherit;
@@ -129,15 +129,15 @@
     }
 
     .tab-btn.active {
-      background: var(--gold);
-      color: #1a202c;
-      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+      background: #ffffff;
+      color: var(--terracotta);
+      box-shadow: 0 2px 8px rgba(116, 88, 70, 0.12);
     }
 
     .lang-btn {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid var(--glass-border);
-      color: var(--gold-light);
+      background: #ffffff;
+      border: 1px solid var(--sand-border);
+      color: var(--sand-brown);
       padding: 8px 16px;
       border-radius: 10px;
       font-family: inherit;
@@ -147,22 +147,24 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
       transition: all 0.2s;
     }
     .lang-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--sand-bg);
+      color: var(--terracotta);
     }
 
-    /* 核心 Hero 主名片卡片 */
+    /* 核心名片卡片 (暖沙 Hero Card) */
     .hero-card {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.04) 100%);
-      border: 1px solid var(--card-border);
+      background: var(--sand-card-bg);
+      border: 1px solid var(--sand-border);
       border-radius: 24px;
       padding: 32px 28px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 16px 35px rgba(116, 88, 70, 0.08);
       position: relative;
       margin-bottom: 24px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
     }
 
     .hero-top-row {
@@ -177,63 +179,64 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(212, 175, 55, 0.15);
-      border: 1px solid var(--gold);
-      color: var(--gold-light);
+      background: rgba(192, 108, 84, 0.1);
+      border: 1px solid rgba(192, 108, 84, 0.35);
+      color: var(--terracotta);
       padding: 5px 14px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .hero-title {
-      font-size: 30px;
+      font-size: 29px;
       font-weight: 900;
       line-height: 1.3;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 8px;
     }
 
     .hero-sub {
       font-size: 15px;
-      color: var(--text-dim);
+      color: var(--text-muted);
       font-weight: 600;
     }
 
     .flag-badge-box {
       width: 72px;
       height: 72px;
-      border: 2px solid var(--gold);
+      border: 2px solid var(--sand-gold);
       border-radius: 18px;
-      background: rgba(0, 0, 0, 0.2);
+      background: #faf6f0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       position: relative;
+      box-shadow: 0 4px 10px rgba(194, 136, 74, 0.15);
     }
 
     .flag-badge-box span {
       font-size: 11px;
       font-weight: 800;
-      color: var(--gold-light);
+      color: var(--sand-brown);
       letter-spacing: 0.5px;
     }
 
     .online-indicator {
       width: 10px;
       height: 10px;
-      background: var(--wa-green);
+      background: #25d366;
       border-radius: 50%;
       position: absolute;
       bottom: -3px;
       right: -3px;
-      box-shadow: 0 0 8px var(--wa-green);
+      box-shadow: 0 0 6px #25d366;
     }
 
-    /* 快速行动按钮网格 */
+    /* 暖陶风格操作按钮 */
     .action-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -247,7 +250,7 @@
       justify-content: center;
       gap: 10px;
       padding: 13px 18px;
-      border-radius: 12px;
+      border-radius: 14px;
       text-decoration: none;
       font-weight: 700;
       font-size: 15px;
@@ -258,47 +261,51 @@
     }
 
     .btn-wa {
-      background: #4caf50;
-      background: linear-gradient(135deg, #25d366 0%, #1da851 100%);
-      color: white;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+      background: var(--wa-terracotta);
+      color: #ffffff;
+      box-shadow: 0 5px 16px rgba(192, 108, 84, 0.3);
     }
 
     .btn-call {
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-      color: #1a202c;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+      background: #ffffff;
+      border: 1.5px solid var(--sand-border);
+      color: var(--sand-brown);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+    }
+    .btn-call:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
     }
 
-    /* 办公实体信息栏 */
+    /* 办公室实体信息 */
     .office-info-bar {
       margin-top: 24px;
       padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--sand-border);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 11px;
     }
 
     .info-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--text-dim);
+      color: var(--text-muted);
       font-size: 13px;
       text-decoration: none;
     }
     .info-row i {
-      color: var(--gold);
+      color: var(--terracotta);
       width: 16px;
       text-align: center;
     }
     .info-row strong {
-      color: #ffffff;
+      color: var(--text-main);
       font-weight: 700;
     }
 
-    /* 业务板块卡片容器 */
+    /* 业务板块面板 */
     .services-stack {
       display: flex;
       flex-direction: column;
@@ -306,24 +313,25 @@
     }
 
     .service-panel {
-      background: var(--glass-panel);
-      border: 1px solid var(--glass-border);
+      background: var(--sand-card-bg);
+      border: 1px solid var(--sand-border);
       border-radius: 20px;
       padding: 24px;
       transition: all 0.25s;
       position: relative;
+      box-shadow: 0 6px 18px rgba(116, 88, 70, 0.04);
     }
     .service-panel:hover {
-      border-color: var(--gold);
-      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--terracotta);
       transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(192, 108, 84, 0.1);
     }
 
     .panel-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .panel-title-group {
@@ -336,8 +344,8 @@
       width: 44px;
       height: 44px;
       border-radius: 12px;
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold);
+      background: rgba(192, 108, 84, 0.12);
+      color: var(--terracotta);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -345,18 +353,18 @@
     }
 
     .panel-title {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--sand-brown);
     }
 
     .panel-desc {
       font-size: 14px;
-      color: var(--text-dim);
+      color: var(--text-muted);
       margin-bottom: 16px;
     }
 
-    /* 标签/业务细分条目 */
+    /* 暖陶标签 */
     .tag-cloud {
       display: flex;
       flex-wrap: wrap;
@@ -364,11 +372,11 @@
     }
 
     .detail-tag {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #e2e8f0;
+      background: #faf6f0;
+      border: 1px solid var(--sand-border);
+      color: var(--text-main);
       font-size: 13px;
-      padding: 6px 14px;
+      padding: 6px 13px;
       border-radius: 10px;
       font-weight: 600;
     }
@@ -376,15 +384,95 @@
     .panel-foot {
       margin-top: 16px;
       padding-top: 12px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      border-top: 1px dashed var(--sand-border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 12px;
-      color: var(--gold-light);
+      color: var(--sand-brown);
+      font-weight: 600;
     }
 
-    /* 视图隐藏类 */
+    /* 全新升级润色：房产、仓库、厂房中介与全行业公司深度合作专属卡片 */
+    .partnership-card {
+      background: linear-gradient(135deg, rgba(192, 108, 84, 0.1) 0%, rgba(255, 255, 255, 0.96) 100%);
+      border: 1.5px solid var(--terracotta);
+      border-radius: 22px;
+      padding: 26px 24px;
+      margin-top: 22px;
+      box-shadow: 0 10px 25px rgba(192, 108, 84, 0.12);
+      position: relative;
+    }
+
+    .partnership-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .partnership-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--terracotta);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(192, 108, 84, 0.25);
+    }
+
+    .partnership-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--terracotta-dark);
+      line-height: 1.3;
+    }
+
+    .partnership-desc {
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .partnership-reward-box {
+      background: #faf6f0;
+      border-right: 4px solid var(--terracotta);
+      border-left: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--terracotta-dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    [dir="ltr"] .partnership-reward-box {
+      border-left: 4px solid var(--terracotta);
+      border-right: none;
+    }
+
+    .partnership-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .p-tag {
+      background: rgba(192, 108, 84, 0.12);
+      color: var(--terracotta-dark);
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 8px;
+    }
+
     .hidden {
       display: none !important;
     }
@@ -393,10 +481,10 @@
     .footer {
       text-align: center;
       font-size: 12px;
-      color: #94a3b8;
+      color: var(--text-muted);
       margin-top: 36px;
       padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--sand-border);
     }
 
     @media (max-width: 600px) {
@@ -457,7 +545,7 @@
           <p class="hero-sub" id="txt-hero-sub">埃及华人华商综合服务平台 · 一站式企业投资落地中心</p>
         </div>
         <div class="flag-badge-box">
-          <i class="fa-solid fa-handshake-simple" style="color: var(--gold); font-size: 20px; margin-bottom: 4px;"></i>
+          <i class="fa-solid fa-handshake-simple" style="color: var(--terracotta); font-size: 20px; margin-bottom: 4px;"></i>
           <span>EGYPT • CN</span>
           <div class="online-indicator"></div>
         </div>
@@ -465,7 +553,7 @@
 
       <!-- 快速拨号与 WhatsApp 行动按钮 -->
       <div class="action-grid">
-        <a class="btn-action btn-wa" href="https://wa.me/201555188966?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85%20%D9%81%D9%8A%20%D9%85%D8%B5%D8%B1" target="_blank">
+        <a class="btn-action btn-wa" href="https://wa.me/201555188966?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AA%D8%B9%D8%A7%D9%88%D9%86%20%D9%85%D8%B9%D9%83%D9%85%20%D9%88%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D8%A9%20%D8%A8%D8%B9%D8%B6%20%D8%A7%D9%84%D9%81%D8%B1%D8%B5%20%D9%88%D8%A7%D9%84%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20%D9%81%D9%8A%20%D9%85%D8%B5%D8%B1" target="_blank">
           <i class="fa-brands fa-whatsapp fa-xl"></i>
           <span id="txt-btn-wa">واتساب مباشر</span>
         </a>
@@ -564,6 +652,27 @@
         </div>
       </div>
 
+      <!-- 4. 深度合作倡议（已润色房产、厂房、仓库中介及各行业公司） -->
+      <div class="partnership-card">
+        <div class="partnership-head">
+          <div class="partnership-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+          <h3 class="partnership-title" id="txt-part-title">دعوة للشراكة مع الوسطاء والشركات في مصر</h3>
+        </div>
+        <p class="partnership-desc" id="txt-part-desc">
+          نرحب بكل صدق واعتزاز بالتعاون البنّاء مع كافة الشركات، مكاتب المحاماة، ومكاتب الوساطة العقارية والوسطاء المتخصصين في تأجير وبيع العقارات، المستودعات، الهناجر، المصانع، والمقرات الإدارية في مختلف محافظات مصر.
+        </p>
+        <div class="partnership-reward-box">
+          <i class="fa-solid fa-award"></i>
+          <span id="txt-part-reward">إذا كانت لديكم أي موارد أو عروض متاحة، يسعدنا تواصلكم؛ ونضمن لكم أفضل العوائد والمكافآت التنافسية.</span>
+        </div>
+        <div class="partnership-tags">
+          <span class="p-tag" id="p-tag1">وسطاء ومكاتب العقارات والمقرات</span>
+          <span class="p-tag" id="p-tag2">مسؤولو تأجير المصانع والهناجر والمستودعات</span>
+          <span class="p-tag" id="p-tag3">مكاتب الاستشارات القانونية وتأسيس الشركات</span>
+          <span class="p-tag" id="p-tag4">شركات الشحن والخدمات اللوجستية والتجارية</span>
+        </div>
+      </div>
+
     </div>
 
     <!-- 底部版权 -->
@@ -607,6 +716,10 @@
         s3Desc: 'ربط الأعمال والشراكات، التخليص الجمركي واللوجستيات، تراخيص الاستيراد والتصدير والدراسات.',
         s3Foot: 'حلول متكاملة تضمن سرعة النفاذ للسوق المصري وتيسير سلاسل الإمداد',
         s3Tags: ['ربط الأعمال والشراكات (资源对接)', 'التخليص الجمركي ونظام نافذة (清关物流)', 'تراخيص الاستيراد والتصدير (进口出口)', 'استشارات ودراسات السوق (商务咨询)'],
+        partTitle: 'دعوة للشراكة مع الوسطاء والشركات في مصر',
+        partDesc: 'نرحب بكل صدق واعتزاز بالتعاون البنّاء مع كافة الشركات، مكاتب المحاماة، ومكاتب الوساطة العقارية والوسطاء المتخصصين في تأجير وبيع العقارات، المستودعات، الهناجر، المصانع، والمقرات الإدارية في مختلف محافظات مصر.',
+        partReward: 'إذا كانت لديكم أي موارد أو عروض متاحة، يسعدنا تواصلكم في أي وقت؛ ونضمن لكم أفضل العوائد والمكافآت التنافسية وأعلى درجات الاحترافية.',
+        pTags: ['وسطاء ومكاتب العقارات والمقرات', 'مسؤولو تأجير المصانع والهناجر والمستودعات', 'مكاتب الاستشارات القانونية وتأسيس الشركات', 'شركات الشحن والخدمات اللوجستية والتجارية'],
         footer: 'بلوك 40، مركز خدمات البنفسج، القاهرة الجديدة © 2026 جميع الحقوق محفوظة'
       },
       zh: {
@@ -638,6 +751,10 @@
         s3Desc: '本地优质商业与政企资源对接、Nafeza/ACID 单一窗口清关物流与进出口经营代理。',
         s3Foot: '打通埃及市场准入通路，解决中资企业供应链与贸易牌照痛点',
         s3Tags: ['中埃政企资源跨国对接 (资源对接)', '港口清关与ACID单号 (清关物流)', '进出口经营牌照代持 (进口出口)', '埃及市场准入尽调咨询 (商务咨询)'],
+        partTitle: '生态共赢 · 诚邀全行业公司、办公室及房产仓储中介合作',
+        partDesc: '我们诚心希望与埃及各行业的公司、顾问办公室，以及专门从事高端房产、物流仓库、工业厂房租售的中介机构与同行经纪人建立长期深入的战略合作。',
+        partReward: '若您手中有优质房产、地皮、库房或厂房等资源，欢迎随时对接！我们客源充足，并承诺为您提供最具行业竞争力的丰厚回报与分成！',
+        pTags: ['房产租售中介与经纪办公室', '厂房/车间/仓库与工业地产专业团队', '涉外法务中介与商务咨询公司', '国际物流/清关代理与综合贸易企业'],
         footer: '埃及开罗·新开罗紫罗兰商业服务中心 40 号街区 © 2026 版权所有'
       }
     };
@@ -679,6 +796,15 @@
       document.getElementById('txt-s3-title').innerText = d.s3Title;
       document.getElementById('txt-s3-desc').innerText = d.s3Desc;
       document.getElementById('txt-s3-foot').innerText = d.s3Foot;
+
+      // 合作与回报文案更新
+      document.getElementById('txt-part-title').innerText = d.partTitle;
+      document.getElementById('txt-part-desc').innerText = d.partDesc;
+      document.getElementById('txt-part-reward').innerText = d.partReward;
+      document.getElementById('p-tag1').innerText = d.pTags[0];
+      document.getElementById('p-tag2').innerText = d.pTags[1];
+      document.getElementById('p-tag3').innerText = d.pTags[2];
+      document.getElementById('p-tag4').innerText = d.pTags[3];
 
       document.getElementById('txt-footer').innerText = d.footer;
 
