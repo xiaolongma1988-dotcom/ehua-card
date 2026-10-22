@@ -7,22 +7,23 @@
   <!-- Google Fonts: Cairo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <!-- FontAwesome 图标库 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root {
-      --primary: #0f393b;       /* 埃及商务典雅墨绿色 */
-      --primary-light: #185a5d;
-      --gold: #c5a059;          /* 商务金 */
-      --gold-hover: #b08d4b;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --whatsapp: #25D366;
+      --bg-gradient: linear-gradient(145deg, #424e5e 0%, #293444 45%, #1d2532 100%);
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(212, 175, 55, 0.25);
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-dark: #b89326;
+      --wa-green: #25d366;
+      --text-white: #ffffff;
+      --text-dim: #cbd5e1;
+      --glass-panel: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.12);
     }
 
     * {
@@ -33,490 +34,679 @@
 
     body {
       font-family: 'Cairo', 'Noto Sans SC', sans-serif;
-      background-color: var(--bg);
-      color: var(--text-main);
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      color: var(--text-white);
       line-height: 1.6;
-      padding: 20px 12px;
+      padding: 24px 16px 60px;
       display: flex;
       justify-content: center;
     }
 
-    .container {
+    .app-container {
       width: 100%;
-      max-width: 640px;
+      max-width: 780px;
+      margin: 0 auto;
     }
 
-    /* 顶部语言切换栏 */
-    .top-bar {
+    /* 顶部导航与品牌标识 */
+    .top-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .badge-status {
+    .brand-meta {
+      text-align: right;
+    }
+    [dir="ltr"] .brand-meta {
+      text-align: left;
+    }
+
+    .brand-meta h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-white);
+      letter-spacing: 0.5px;
+    }
+
+    .brand-meta p {
       font-size: 13px;
-      background: #e6f4ea;
-      color: #137333;
-      padding: 4px 10px;
-      border-radius: 20px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
+      color: var(--text-dim);
+      font-weight: 500;
     }
 
-    .lang-btn {
-      background: #fff;
-      border: 1px solid var(--border);
-      padding: 6px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 700;
-      color: var(--primary);
-      transition: all 0.2s;
-    }
-    .lang-btn:hover {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    /* 核心名片卡 */
-    .card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-
-    .card-header {
-      background: linear-gradient(135deg, var(--primary) 0%, #082223 100%);
-      color: white;
-      padding: 32px 24px;
-      text-align: center;
-      position: relative;
-    }
-
-    .brand-icon {
-      width: 64px;
-      height: 64px;
-      background: rgba(197, 160, 89, 0.15);
-      border: 2px solid var(--gold);
-      border-radius: 50%;
+    .brand-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: #1a202c;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 14px;
-      font-size: 26px;
-      color: var(--gold);
+      font-size: 24px;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+      flex-shrink: 0;
     }
 
-    .card-title {
-      font-size: 22px;
-      font-weight: 800;
-      margin-bottom: 6px;
+    /* 视图切换与语言切换按钮栏 */
+    .control-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
     }
 
-    .card-subtitle {
-      font-size: 14px;
-      color: #cbd5e1;
+    .view-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      gap: 4px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--gold);
+      color: #1a202c;
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--glass-border);
+      color: var(--gold-light);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* 核心 Hero 主名片卡片 */
+    .hero-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.04) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .badge-official {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.3;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-dim);
       font-weight: 600;
     }
 
-    /* 核心操作按钮 */
+    .flag-badge-box {
+      width: 72px;
+      height: 72px;
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .flag-badge-box span {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold-light);
+      letter-spacing: 0.5px;
+    }
+
+    .online-indicator {
+      width: 10px;
+      height: 10px;
+      background: var(--wa-green);
+      border-radius: 50%;
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      box-shadow: 0 0 8px var(--wa-green);
+    }
+
+    /* 快速行动按钮网格 */
     .action-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      padding: 18px 20px;
-      background: #ffffff;
-      border-bottom: 1px solid var(--border);
+      margin-top: 24px;
     }
 
-    .btn {
+    .btn-action {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 12px 14px;
+      gap: 10px;
+      padding: 13px 18px;
       border-radius: 12px;
       text-decoration: none;
       font-weight: 700;
       font-size: 15px;
-      transition: transform 0.15s, opacity 0.15s;
+      transition: all 0.2s;
     }
-    .btn:active {
-      transform: scale(0.98);
+    .btn-action:hover {
+      transform: translateY(-2px);
     }
 
     .btn-wa {
-      background-color: var(--whatsapp);
+      background: #4caf50;
+      background: linear-gradient(135deg, #25d366 0%, #1da851 100%);
       color: white;
-      grid-column: span 2;
-      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
     }
 
     .btn-call {
-      background-color: var(--primary);
-      color: white;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: #1a202c;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
     }
 
-    .btn-map {
-      background-color: #f1f5f9;
-      color: var(--text-main);
-      border: 1px solid var(--border);
-    }
-
-    /* 联系明细列表 */
-    .contact-list {
-      padding: 18px 20px;
+    /* 办公实体信息栏 */
+    .office-info-bar {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
     }
 
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      text-decoration: none;
-      color: var(--text-main);
-    }
-
-    .contact-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: #f1f5f9;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .contact-meta .label {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 600;
-      display: block;
-    }
-
-    .contact-meta .val {
-      font-size: 14px;
-      font-weight: 700;
-      direction: ltr;
-      display: inline-block;
-    }
-
-    /* 业务板块详情卡片 */
-    .section-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0 4px;
-    }
-
-    .services-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .service-box {
-      background: white;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      padding: 16px 18px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-    }
-
-    .service-header {
+    .info-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 10px;
-      border-bottom: 1px dashed var(--border);
-      padding-bottom: 8px;
+      color: var(--text-dim);
+      font-size: 13px;
+      text-decoration: none;
     }
-
-    .service-header i {
-      font-size: 18px;
+    .info-row i {
       color: var(--gold);
+      width: 16px;
+      text-align: center;
     }
-
-    .service-header h3 {
-      font-size: 16px;
+    .info-row strong {
+      color: #ffffff;
       font-weight: 700;
-      color: var(--primary);
     }
 
-    .tags-container {
+    /* 业务板块卡片容器 */
+    .services-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .service-panel {
+      background: var(--glass-panel);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 24px;
+      transition: all 0.25s;
+      position: relative;
+    }
+    .service-panel:hover {
+      border-color: var(--gold);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .panel-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .panel-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .panel-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .panel-desc {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    /* 标签/业务细分条目 */
+    .tag-cloud {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    .tag {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      color: #334155;
+    .detail-tag {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
       font-size: 13px;
-      padding: 5px 12px;
-      border-radius: 8px;
+      padding: 6px 14px;
+      border-radius: 10px;
       font-weight: 600;
     }
 
-    /* 底部版权信息 */
+    .panel-foot {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--gold-light);
+    }
+
+    /* 视图隐藏类 */
+    .hidden {
+      display: none !important;
+    }
+
+    /* 页脚 */
     .footer {
       text-align: center;
       font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 10px;
-      padding-bottom: 20px;
+      color: #94a3b8;
+      margin-top: 36px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 600px) {
+      .action-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: 23px;
+      }
+      .hero-card {
+        padding: 22px 18px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <div class="app-container">
     
-    <!-- 顶部状态与语言切换 -->
-    <div class="top-bar">
-      <div class="badge-status">
-        <i class="fa-solid fa-circle-check"></i>
-        <span id="txt-status">مكتب معتمد ومتاح للخدمة</span>
+    <!-- 顶栏品牌信息 -->
+    <header class="top-header">
+      <div class="brand-avatar">
+        <i class="fa-solid fa-landmark"></i>
       </div>
+      <div class="brand-meta">
+        <h2 id="txt-bar-title">منصة مصر والشرق للخدمات الشاملة</h2>
+        <p id="txt-bar-sub">Comprehensive Egypt Business Gateway</p>
+      </div>
+    </header>
+
+    <!-- 交互控制栏（模式切换 + 语言切换） -->
+    <div class="control-bar">
+      <div class="view-tabs">
+        <button class="tab-btn active" id="tab-card" onclick="switchView('card')">
+          <i class="fa-solid fa-address-card"></i>
+          <span id="txt-tab-card">بطاقة العمل</span>
+        </button>
+        <button class="tab-btn" id="tab-catalog" onclick="switchView('catalog')">
+          <i class="fa-solid fa-list-check"></i>
+          <span id="txt-tab-cat">دليل الخدمات الكامل</span>
+        </button>
+      </div>
+
       <button class="lang-btn" onclick="toggleLanguage()">
-        <i class="fa-solid fa-globe"></i> <span id="btn-lang-text">中文版</span>
+        <i class="fa-solid fa-globe"></i>
+        <span id="txt-lang-toggle">中文 (ZH)</span>
       </button>
     </div>
 
-    <!-- 主名片卡 -->
-    <div class="card">
-      <div class="card-header">
-        <div class="brand-icon">
-          <i class="fa-solid fa-handshake"></i>
+    <!-- 核心名片卡片 (Hero Card) -->
+    <div class="hero-card">
+      <div class="hero-top-row">
+        <div>
+          <div class="badge-official" id="txt-badge">
+            <i class="fa-solid fa-certificate"></i> البوابة المعتمدة لرجال الأعمال والمستثمرين
+          </div>
+          <h1 class="hero-title" id="txt-hero-title">منصة مصر للخدمات الشاملة للمستثمرين</h1>
+          <p class="hero-sub" id="txt-hero-sub">埃及华人华商综合服务平台 · 一站式企业投资落地中心</p>
         </div>
-        <h1 class="card-title" id="txt-title">منصة الخدمات الشاملة في مصر</h1>
-        <p class="card-subtitle" id="txt-subtitle">شريككم الموثوق للاستثمار العقاري، القانوني والتجاري</p>
+        <div class="flag-badge-box">
+          <i class="fa-solid fa-handshake-simple" style="color: var(--gold); font-size: 20px; margin-bottom: 4px;"></i>
+          <span>EGYPT • CN</span>
+          <div class="online-indicator"></div>
+        </div>
       </div>
 
-      <!-- 快速行动入口 -->
+      <!-- 快速拨号与 WhatsApp 行动按钮 -->
       <div class="action-grid">
-        <a class="btn btn-wa" href="https://wa.me/201555188966?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85%20%D9%81%D9%8A%20%D9%85%D8%B5%D8%B1" target="_blank">
-          <i class="fa-brands fa-whatsapp fa-lg"></i>
-          <span id="btn-wa-text">محادثة واتساب مباشرة (WhatsApp)</span>
+        <a class="btn-action btn-wa" href="https://wa.me/201555188966?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85%20%D9%81%D9%8A%20%D9%85%D8%B5%D8%B1" target="_blank">
+          <i class="fa-brands fa-whatsapp fa-xl"></i>
+          <span id="txt-btn-wa">واتساب مباشر</span>
         </a>
-        <a class="btn btn-call" href="tel:+201555188966">
+        <a class="btn-action btn-call" href="tel:+201555188966">
           <i class="fa-solid fa-phone"></i>
-          <span id="btn-call-text">اتصال هاتفي</span>
+          <span id="txt-btn-call">اتصال هاتفي</span>
         </a>
-        <a class="btn btn-map" href="https://www.google.com/maps/search/?api=1&query=Block+40+Banafsaj+services+center+New+Cairo" target="_blank">
+      </div>
+
+      <!-- 办公室实体与联络明细 -->
+      <div class="office-info-bar">
+        <a class="info-row" href="https://www.google.com/maps/search/?api=1&query=Block+40+Banafsaj+services+center+New+Cairo" target="_blank">
           <i class="fa-solid fa-location-dot"></i>
-          <span id="btn-map-text">فتح الخريطة</span>
+          <span id="txt-addr-label">المقر:</span>
+          <strong id="txt-addr-val">بلوك 40، مركز خدمات البنفسج، القاهرة الجديدة (بالقرب من التجمع الأول)</strong>
         </a>
-      </div>
-
-      <!-- 详细联络方式 -->
-      <div class="contact-list">
-        <!-- 地址 -->
-        <a class="contact-item" href="https://www.google.com/maps/search/?api=1&query=Block+40+Banafsaj+services+center+New+Cairo" target="_blank">
-          <div class="contact-icon"><i class="fa-solid fa-building"></i></div>
-          <div class="contact-meta">
-            <span class="label" id="lbl-addr">مقر الشركة:</span>
-            <div style="font-weight: 700; font-size: 14px;" id="val-addr">بلوك 40، مركز خدمات البنفسج، بالقرب من التجمع الأول، القاهرة الجديدة</div>
-          </div>
-        </a>
-
-        <!-- 电话 -->
-        <a class="contact-item" href="tel:+201555188966">
-          <div class="contact-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-          <div class="contact-meta">
-            <span class="label" id="lbl-phone">الهاتف / واتساب:</span>
-            <span class="val">+20 155 518 8966</span>
-          </div>
-        </a>
-
-        <!-- 邮箱 -->
-        <a class="contact-item" href="mailto:dawoodehua@gmail.com">
-          <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
-          <div class="contact-meta">
-            <span class="label" id="lbl-email">البريد الإلكتروني:</span>
-            <span class="val">dawoodehua@gmail.com</span>
-          </div>
-        </a>
-
-        <!-- 工作时间 -->
-        <div class="contact-item">
-          <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
-          <div class="contact-meta">
-            <span class="label" id="lbl-hours">مواعيد العمل الرسمية:</span>
-            <div style="font-size: 14px; font-weight: 700;" id="val-hours">الأحد - الخميس: 9:00 صباحاً - 6:00 مساءً</div>
-          </div>
+        <div class="info-row">
+          <i class="fa-solid fa-envelope"></i>
+          <span id="txt-email-label">البريد:</span>
+          <strong>dawoodehua@gmail.com</strong>
+        </div>
+        <div class="info-row">
+          <i class="fa-solid fa-clock"></i>
+          <span id="txt-time-label">أوقات العمل:</span>
+          <strong id="txt-time-val">الأحد - الخميس: 9:00 ص - 6:00 م (بتوقيت القاهرة)</strong>
         </div>
       </div>
     </div>
 
-    <!-- 业务细分板块 -->
-    <div class="section-title">
-      <i class="fa-solid fa-briefcase"></i>
-      <span id="sec-services-title">مجالات واختصاصات الخدمة</span>
-    </div>
-
-    <div class="services-wrapper">
+    <!-- 业务板块列表 -->
+    <div class="services-stack">
+      
       <!-- 1. 房地产咨询 -->
-      <div class="service-box">
-        <div class="service-header">
-          <i class="fa-solid fa-city"></i>
-          <h3 id="srv1-title">الاستشارات العقارية</h3>
+      <div class="service-panel">
+        <div class="panel-head">
+          <div class="panel-title-group">
+            <div class="panel-icon-wrap"><i class="fa-solid fa-city"></i></div>
+            <h3 class="panel-title" id="txt-s1-title">الاستشارات العقارية</h3>
+          </div>
         </div>
-        <div class="tags-container" id="srv1-tags">
-          <span class="tag">وحدات سكنية فاخرة (住宅)</span>
-          <span class="tag">فيلات وقصور (别墅)</span>
-          <span class="tag">مكاتب ومقرات إدارية (写字楼/办公室)</span>
-          <span class="tag">عنابر ومصانع (厂房车间)</span>
-          <span class="tag">مستودعات ومخازن (仓库仓储)</span>
-          <span class="tag">أراضٍ صناعية واستثمارية (工业商业地皮)</span>
+        <p class="panel-desc" id="txt-s1-desc">مصانع وهناجر، أراضٍ استثمارية، مكاتب إدارية، مستودعات لوجستية، وفلل وشقق فاخرة.</p>
+        <div class="tag-cloud" id="tags-s1">
+          <span class="detail-tag">وحدات سكنية فاخرة (住宅)</span>
+          <span class="detail-tag">فيلات وقصور (别墅)</span>
+          <span class="detail-tag">مكاتب ومقرات إدارية (写字楼)</span>
+          <span class="detail-tag">مصانع وهناجر (厂房车间)</span>
+          <span class="detail-tag">مستودعات ومخازن (仓库)</span>
+          <span class="detail-tag">أراضٍ صناعية واستثمارية (地皮)</span>
+        </div>
+        <div class="panel-foot">
+          <span id="txt-s1-foot">تغطية كافة المدن والمناطق الصناعية (العاشر من رمضان، 6 أكتوبر، تيدا السويس)</span>
+          <i class="fa-solid fa-arrow-left"></i>
         </div>
       </div>
 
       <!-- 2. 法律与政务 -->
-      <div class="service-box">
-        <div class="service-header">
-          <i class="fa-solid fa-scale-balanced"></i>
-          <h3 id="srv2-title">الاستشارات القانونية والإجرائية</h3>
+      <div class="service-panel">
+        <div class="panel-head">
+          <div class="panel-title-group">
+            <div class="panel-icon-wrap"><i class="fa-solid fa-scale-balanced"></i></div>
+            <h3 class="panel-title" id="txt-s2-title">الاستشارات القانونية والإجرائية</h3>
+          </div>
         </div>
-        <div class="tags-container" id="srv2-tags">
-          <span class="tag">تأسيس وتسجيل الشركات (公司注册)</span>
-          <span class="tag">إقامات مستثمرين وتصاريح عمل (居留办理与工作签)</span>
-          <span class="tag">الفحص والملفات الضريبية (税务登记与合规)</span>
-          <span class="tag">النشر بالجريدة الرسمية (报纸公告登报)</span>
-          <span class="tag">توثيق وفحص المستندات الرسمية (证件办理与认证核实)</span>
+        <p class="panel-desc" id="txt-s2-desc">تأسيس الشركات، إقامات المستثمرين، الفحص الضريبي، النشر بالجريدة الرسمية وتوثيق المستندات.</p>
+        <div class="tag-cloud" id="tags-s2">
+          <span class="detail-tag">تأسيس وتسجيل الشركات (公司注册)</span>
+          <span class="detail-tag">إقامات المستثمرين والعمل (居住办理)</span>
+          <span class="detail-tag">الفحص الضريبي والفاتورة (税务登报)</span>
+          <span class="detail-tag">النشر بالجريدة الرسمية (登报声明)</span>
+          <span class="detail-tag">تصديق وفحص المستندات (证件办理核实)</span>
+        </div>
+        <div class="panel-foot">
+          <span id="txt-s2-foot">إجراءات معتمدة ومطابقة لكافة اللوائح وقوانين الاستثمار المصرية</span>
+          <i class="fa-solid fa-arrow-left"></i>
         </div>
       </div>
 
-      <!-- 3. 商务与贸易 -->
-      <div class="service-box">
-        <div class="service-header">
-          <i class="fa-solid fa-ship"></i>
-          <h3 id="srv3-title">خدمات الأعمال والتجارة</h3>
+      <!-- 3. 商务服务 -->
+      <div class="service-panel">
+        <div class="panel-head">
+          <div class="panel-title-group">
+            <div class="panel-icon-wrap"><i class="fa-solid fa-briefcase"></i></div>
+            <h3 class="panel-title" id="txt-s3-title">خدمات الأعمال والتجارة</h3>
+          </div>
         </div>
-        <div class="tags-container" id="srv3-tags">
-          <span class="tag">ربط وتوفيق الأعمال والشراكات (商业资源对接)</span>
-          <span class="tag">التخليص الجمركي وإجراءات نافذة (清关物流/Nafeza)</span>
-          <span class="tag">تراخيص الاستيراد والتصدير (进出口资质代理)</span>
-          <span class="tag">استشارات ودراسات السوق المصري (埃及商业落地咨询)</span>
+        <p class="panel-desc" id="txt-s3-desc">ربط الأعمال والشراكات، التخليص الجمركي واللوجستيات، تراخيص الاستيراد والتصدير والدراسات.</p>
+        <div class="tag-cloud" id="tags-s3">
+          <span class="detail-tag">ربط الأعمال والشراكات (资源对接)</span>
+          <span class="detail-tag">التخليص الجمركي ونظام نافذة (清关物流)</span>
+          <span class="detail-tag">تراخيص الاستيراد والتصدير (进口出口)</span>
+          <span class="detail-tag">استشارات ودراسات السوق (商务咨询)</span>
+        </div>
+        <div class="panel-foot">
+          <span id="txt-s3-foot">حلول متكاملة تضمن سرعة النفاذ للسوق المصري وتيسير سلاسل الإمداد</span>
+          <i class="fa-solid fa-arrow-left"></i>
         </div>
       </div>
+
     </div>
 
-    <!-- 页脚说明 -->
-    <div class="footer">
-      <p id="txt-footer">مركز خدمات البنفسج، القاهرة الجديدة © جميع الحقوق محفوظة</p>
-    </div>
+    <!-- 底部版权 -->
+    <footer class="footer">
+      <p id="txt-footer">بلوك 40، مركز خدمات البنفسج، القاهرة الجديدة © 2026 جميع الحقوق محفوظة</p>
+    </footer>
 
   </div>
 
   <script>
     let currentLang = 'ar';
+    let currentView = 'card';
 
-    const translations = {
+    const langData = {
       ar: {
         dir: 'rtl',
-        btnLang: '中文版',
-        status: 'مكتب معتمد ومتاح للخدمة',
-        title: 'منصة الخدمات الشاملة في مصر',
-        subtitle: 'شريككم الموثوق للاستثمار العقاري، القانوني والتجاري',
-        btnWa: 'محادثة واتساب مباشرة (WhatsApp)',
+        langBtn: '中文 (ZH)',
+        barTitle: 'منصة مصر والشرق للخدمات الشاملة',
+        barSub: 'Comprehensive Egypt Business Gateway',
+        tabCard: 'بطاقة العمل',
+        tabCat: 'دليل الخدمات الكامل',
+        badge: 'البوابة المعتمدة لرجال الأعمال والمستثمرين',
+        heroTitle: 'منصة مصر للخدمات الشاملة للمستثمرين',
+        heroSub: '埃及华人华商综合服务平台 · 一站式企业投资落地中心',
+        btnWa: 'واتساب مباشر',
         btnCall: 'اتصال هاتفي',
-        btnMap: 'فتح الخريطة',
-        lblAddr: 'مقر الشركة:',
-        valAddr: 'بلوك 40، مركز خدمات البنفسج، بالقرب من التجمع الأول، القاهرة الجديدة',
-        lblPhone: 'الهاتف / واتساب:',
-        lblEmail: 'البريد الإلكتروني:',
-        lblHours: 'مواعيد العمل الرسمية:',
-        valHours: 'الأحد - الخميس: 9:00 صباحاً - 6:00 مساءً',
-        secServices: 'مجالات واختصاصات الخدمة',
-        srv1Title: 'الاستشارات العقارية المتكاملة',
-        srv2Title: 'الاستشارات القانونية والإجرائية',
-        srv3Title: 'خدمات الأعمال والتجارة الدولية',
-        footer: 'مركز خدمات البنفسج، القاهرة الجديدة © جميع الحقوق محفوظة',
-        tags1: ['وحدات سكنية فاخرة', 'فيلات وقصور', 'مكاتب ومقرات إدارية', 'عنابر ومصانع', 'مستودعات ومخازن', 'أراضٍ صناعية واستثمارية'],
-        tags2: ['تأسيس وتسجيل الشركات', 'إقامات مستثمرين وتصاريح عمل', 'الفحص والملفات الضريبية', 'النشر بالجريدة الرسمية', 'توثيق وفحص المستندات'],
-        tags3: ['ربط وتوفيق الأعمال والشراكات', 'التخليص الجمركي واللوجستيات', 'تراخيص الاستيراد والتصدير', 'استشارات ودراسات السوق المصري']
+        addrLabel: 'المقر:',
+        addrVal: 'بلوك 40، مركز خدمات البنفسج، القاهرة الجديدة (بالقرب من التجمع الأول)',
+        emailLabel: 'البريد:',
+        timeLabel: 'أوقات العمل:',
+        timeVal: 'الأحد - الخميس: 9:00 ص - 6:00 م (بتوقيت القاهرة)',
+        s1Title: 'الاستشارات العقارية',
+        s1Desc: 'مصانع وهناجر، أراضٍ استثمارية، مكاتب إدارية، مستودعات لوجستية، وفلل وشقق فاخرة.',
+        s1Foot: 'تغطية كافة المدن والمناطق الصناعية (العاشر من رمضان، 6 أكتوبر، تيدا السويس)',
+        s1Tags: ['وحدات سكنية فاخرة (住宅)', 'فيلات وقصور (别墅)', 'مكاتب ومقرات إدارية (写字楼)', 'مصانع وهناجر (厂房车间)', 'مستودعات ومخازن (仓库)', 'أراضٍ صناعية واستثمارية (地皮)'],
+        s2Title: 'الاستشارات القانونية والإجرائية',
+        s2Desc: 'تأسيس الشركات، إقامات المستثمرين، الفحص الضريبي، النشر بالجريدة الرسمية وتوثيق المستندات.',
+        s2Foot: 'إجراءات معتمدة ومطابقة لكافة اللوائح وقوانين الاستثمار المصرية',
+        s2Tags: ['تأسيس وتسجيل الشركات (公司注册)', 'إقامات المستثمرين والعمل (居住办理)', 'الفحص الضريبي والفاتورة (税务登报)', 'النشر بالجريدة الرسمية (登报声明)', 'تصديق وفحص المستندات (证件办理核实)'],
+        s3Title: 'خدمات الأعمال والتجارة',
+        s3Desc: 'ربط الأعمال والشراكات، التخليص الجمركي واللوجستيات، تراخيص الاستيراد والتصدير والدراسات.',
+        s3Foot: 'حلول متكاملة تضمن سرعة النفاذ للسوق المصري وتيسير سلاسل الإمداد',
+        s3Tags: ['ربط الأعمال والشراكات (资源对接)', 'التخليص الجمركي ونظام نافذة (清关物流)', 'تراخيص الاستيراد والتصدير (进口出口)', 'استشارات ودراسات السوق (商务咨询)'],
+        footer: 'بلوك 40، مركز خدمات البنفسج، القاهرة الجديدة © 2026 جميع الحقوق محفوظة'
       },
       zh: {
         dir: 'ltr',
-        btnLang: 'عربي (العربية)',
-        status: '实体办公室 · 随时欢迎洽谈',
-        title: '埃及华人综合服务平台',
-        subtitle: '中资企业与个人赴埃投资·房产·法务·商务一站式服务',
+        langBtn: 'عربي (AR)',
+        barTitle: '埃及与中东综合商务门户',
+        barSub: 'Comprehensive Egypt Business Gateway',
+        tabCard: '商务名片',
+        tabCat: '全量服务清单',
+        badge: '中资企业赴埃投资落地·官方推荐服务商',
+        heroTitle: '埃及华人华商综合服务平台',
+        heroSub: '一站式企业投资落地中心 · 房地产 · 法务合规 · 国际物流与商务',
         btnWa: 'WhatsApp 快速沟通',
         btnCall: '直接电话咨询',
-        btnMap: 'Google 地图定位',
-        lblAddr: '办公实体地址：',
-        valAddr: '埃及开罗·新开罗紫罗兰商业服务中心 40 号街区（近第一定居点）',
-        lblPhone: '联系电话 / WhatsApp：',
-        lblEmail: '企业邮箱：',
-        lblHours: '对外接待时间：',
-        valHours: '周日至周四：09:00 - 18:00（埃及本地作息）',
-        secServices: '核心业务与咨询范围',
-        srv1Title: '房地产与土地厂房咨询',
-        srv2Title: '法律法规与政务办理',
-        srv3Title: '商务落地与国际贸易物流',
-        footer: '埃及开罗·新开罗紫罗兰商业服务中心 © 版权所有',
-        tags1: ['高端住宅租售', '独栋别墅与庄园', '企业办公楼/写字楼', '标准化厂房车间', '保税/物流仓库', '工业与商业用地'],
-        tags2: ['GAFI 公司设立/工商注册', '投资者居留/外籍工作签', '税务登报/做账申报', '报纸公告与注销登报', '使馆双认证/证件核实'],
-        tags3: ['本地商业资源跨国对接', '港口单一窗口清关(Nafeza/ACID)', '进出口资质代持与代理', '埃及市场准入与商业咨询']
+        addrLabel: '实体办公：',
+        addrVal: '埃及开罗·新开罗紫罗兰商业服务中心 40 号街区（近第一定居点）',
+        emailLabel: '企业邮箱：',
+        timeLabel: '接待时间：',
+        timeVal: '周日 至 周四：09:00 - 18:00（埃及本地作息）',
+        s1Title: '房地产与土地厂房咨询',
+        s1Desc: '厂房车间、工业用地、保税仓库、企业总部写字楼及高端住宅别墅精准租售。',
+        s1Foot: '覆盖全埃核心工业区（斋月十日城、6月10日城、中埃苏伊士泰达园区）',
+        s1Tags: ['高端精装住宅 (住宅)', '独栋别墅庄园 (别墅)', '企业总部写字楼 (办公室)', '标准化工业厂房 (厂房)', '保税/物流仓库 (仓库)', '工商业储备地皮 (地皮)'],
+        s2Title: '法律法规与政务办理',
+        s2Desc: '投资总局(GAFI)公司设立、投资居留办理、税务申报合规、公报登报与使馆双认证。',
+        s2Foot: '全流程埃及律师与资深会计师团队把关，符合埃及官方投资法案法规',
+        s2Tags: ['GAFI公司注册设立 (公司注册)', '外籍工作签与投资居留 (居住办理)', '税务登记与做账报税 (税务登报)', '官方报纸挂失登报 (登报声明)', '证件公证使馆双认证 (证件核实)'],
+        s3Title: '国际贸易与商务落地服务',
+        s3Desc: '本地优质商业与政企资源对接、Nafeza/ACID 单一窗口清关物流与进出口经营代理。',
+        s3Foot: '打通埃及市场准入通路，解决中资企业供应链与贸易牌照痛点',
+        s3Tags: ['中埃政企资源跨国对接 (资源对接)', '港口清关与ACID单号 (清关物流)', '进出口经营牌照代持 (进口出口)', '埃及市场准入尽调咨询 (商务咨询)'],
+        footer: '埃及开罗·新开罗紫罗兰商业服务中心 40 号街区 © 2026 版权所有'
       }
     };
 
     function toggleLanguage() {
       currentLang = (currentLang === 'ar') ? 'zh' : 'ar';
-      const data = translations[currentLang];
-
-      document.documentElement.setAttribute('dir', data.dir);
-      document.documentElement.setAttribute('lang', currentLang);
-
-      document.getElementById('btn-lang-text').innerText = data.btnLang;
-      document.getElementById('txt-status').innerText = data.status;
-      document.getElementById('txt-title').innerText = data.title;
-      document.getElementById('txt-subtitle').innerText = data.subtitle;
-      document.getElementById('btn-wa-text').innerText = data.btnWa;
-      document.getElementById('btn-call-text').innerText = data.btnCall;
-      document.getElementById('btn-map-text').innerText = data.btnMap;
-      document.getElementById('lbl-addr').innerText = data.lblAddr;
-      document.getElementById('val-addr').innerText = data.valAddr;
-      document.getElementById('lbl-phone').innerText = data.lblPhone;
-      document.getElementById('lbl-email').innerText = data.lblEmail;
-      document.getElementById('lbl-hours').innerText = data.lblHours;
-      document.getElementById('val-hours').innerText = data.valHours;
-      document.getElementById('sec-services-title').innerText = data.secServices;
-      document.getElementById('srv1-title').innerText = data.srv1Title;
-      document.getElementById('srv2-title').innerText = data.srv2Title;
-      document.getElementById('srv3-title').innerText = data.srv3Title;
-      document.getElementById('txt-footer').innerText = data.footer;
-
-      // 刷新标签列表
-      renderTags('srv1-tags', data.tags1);
-      renderTags('srv2-tags', data.tags2);
-      renderTags('srv3-tags', data.tags3);
+      applyLanguage();
     }
 
-    function renderTags(elementId, tagList) {
-      const container = document.getElementById(elementId);
-      container.innerHTML = tagList.map(tag => `<span class="tag">${tag}</span>`).join('');
+    function applyLanguage() {
+      const d = langData[currentLang];
+      document.documentElement.setAttribute('dir', d.dir);
+      document.documentElement.setAttribute('lang', currentLang);
+
+      document.getElementById('txt-lang-toggle').innerText = d.langBtn;
+      document.getElementById('txt-bar-title').innerText = d.barTitle;
+      document.getElementById('txt-bar-sub').innerText = d.barSub;
+      document.getElementById('txt-tab-card').innerText = d.tabCard;
+      document.getElementById('txt-tab-cat').innerText = d.tabCat;
+      document.getElementById('txt-badge').innerHTML = `<i class="fa-solid fa-certificate"></i> ${d.badge}`;
+      document.getElementById('txt-hero-title').innerText = d.heroTitle;
+      document.getElementById('txt-hero-sub').innerText = d.heroSub;
+      document.getElementById('txt-btn-wa').innerText = d.btnWa;
+      document.getElementById('txt-btn-call').innerText = d.btnCall;
+      document.getElementById('txt-addr-label').innerText = d.addrLabel;
+      document.getElementById('txt-addr-val').innerText = d.addrVal;
+      document.getElementById('txt-email-label').innerText = d.emailLabel;
+      document.getElementById('txt-time-label').innerText = d.timeLabel;
+      document.getElementById('txt-time-val').innerText = d.timeVal;
+
+      document.getElementById('txt-s1-title').innerText = d.s1Title;
+      document.getElementById('txt-s1-desc').innerText = d.s1Desc;
+      document.getElementById('txt-s1-foot').innerText = d.s1Foot;
+
+      document.getElementById('txt-s2-title').innerText = d.s2Title;
+      document.getElementById('txt-s2-desc').innerText = d.s2Desc;
+      document.getElementById('txt-s2-foot').innerText = d.s2Foot;
+
+      document.getElementById('txt-s3-title').innerText = d.s3Title;
+      document.getElementById('txt-s3-desc').innerText = d.s3Desc;
+      document.getElementById('txt-s3-foot').innerText = d.s3Foot;
+
+      document.getElementById('txt-footer').innerText = d.footer;
+
+      renderTags('tags-s1', d.s1Tags);
+      renderTags('tags-s2', d.s2Tags);
+      renderTags('tags-s3', d.s3Tags);
+    }
+
+    function renderTags(elemId, tags) {
+      const el = document.getElementById(elemId);
+      el.innerHTML = tags.map(t => `<span class="detail-tag">${t}</span>`).join('');
+    }
+
+    function switchView(view) {
+      currentView = view;
+      const tabCard = document.getElementById('tab-card');
+      const tabCat = document.getElementById('tab-catalog');
+      const heroCard = document.querySelector('.hero-card');
+
+      if (view === 'card') {
+        tabCard.classList.add('active');
+        tabCat.classList.remove('active');
+        heroCard.classList.remove('hidden');
+      } else {
+        tabCat.classList.add('active');
+        tabCard.classList.remove('active');
+        heroCard.classList.add('hidden');
+      }
     }
   </script>
 </body>
